@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Modell Vorschau</title>
+    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: transparent;
+        }
+        model-viewer {
+            width: 100%;
+            height: 100vh;
+        }
+    </style>
+</head>
+<body>
+    <model-viewer 
+        reveal="auto" 
+        loading="eager" 
+        interpolation-decay="100" 
+        shadow-intensity="0" 
+        background-color="white" 
+        dracoDecoderType="js" 
+        exposure="1.0" 
+        min-camera-orbit="-50deg 40deg 5m" 
+        max-camera-orbit="50deg 150deg 5m" 
+        disable-zoom 
+        camera-controls 
+        disable-pan 
+        id="orbit-demo"
+        src="https://pxiirsbvzwmnttuyjvjv.supabase.co/storage/v1/object/public/OKKIO//Plastic_Bag_12.glb" 
+        alt="3D-Modell einer Plastiktüte">
+    </model-viewer>
+</body>
+</html>
