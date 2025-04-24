@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>3D Modell Vorschau</title>
+
+  <!-- Leicht verzögertes Laden -->
+  <script type="module" defer src="https://unpkg.com/@google/model-viewer@latest"></script>
+
+  <style>
+    model-viewer {
+      display: block;
+      width: 100%;
+      max-width: 800px;
+      height: 100vh;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+    }
+
+    body {
+      margin: 0;
+      background: transparent;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+  </style>
+</head>
+<body>
+  <!-- Nur das Modell – `src` wird erst später gesetzt -->
+  <model-viewer 
+    id="orbit-demo"
+    ar
+    disable-zoom 
+    disable-pan 
+    camera-controls
+    alt="3D-Modell einer Sprühdose"
+    exposure="1">
+  </model-viewer>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const modelViewer = document.getElementById("orbit-demo");
+
+      // Nur laden, wenn im Viewport
+      const observer = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting) {
+          modelViewer.setAttribute("src", "https://raw.githubusercontent.com/KleineMausi/okkio/main/SprayCan.glb");
+
+          // Sobald geladen: einblenden und Kamera einstellen
+          modelViewer.addEventListener("load", () => {
+            modelViewer.style.opacity = "1";
+            modelViewer.cameraOrbit = "0deg 90deg 12m";
+            setTimeout(() => {
+              modelViewer.setAttribute("autoplay", "");
+            }, 3000);
+          });
+
+          observer.disconnect(); // nur einmal beobachten
+        }
+      }, { threshold: 0.5 });
+
+      observer.observe(modelViewer);
+    });
+  </script>
+</body>
+</html>
